@@ -130,7 +130,7 @@ git config --global user.email "github邮箱地址"
 ```
 3. 本地仓库初始化&更改提交
 ```bash
-cd xxxx                         //进入仓库目录
+cd xxxx                         //进入仓库list
 git init                        //本地仓库初始化
 touch Readme                    //比如新建文件
 git add Readme                  //将改动放入暂存区
