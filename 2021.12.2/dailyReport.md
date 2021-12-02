@@ -14,7 +14,7 @@
 明日计划：
 1. 读芯片手册，点灯，在已有硬件条件下测试各项功能
 2. esp-box项目学习 make深入
-3. 针对操作系统英文文档进行翻译阅读
+3. 针对操作系统英文文档进行翻译阅读,进行理解
 
 ## 1.git相关学习
 ### 部署gitlab环境
@@ -130,7 +130,7 @@ git config --global user.email "github邮箱地址"
 ```
 3. 本地仓库初始化&更改提交
 ```bash
-cd xxxx                         //进入仓库list
+cd xxxx                         //进入仓库list!
 git init                        //本地仓库初始化
 touch Readme                    //比如新建文件
 git add Readme                  //将改动放入暂存区
