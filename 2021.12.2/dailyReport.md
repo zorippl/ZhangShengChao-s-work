@@ -1,40 +1,40 @@
-# 12.2
+# 12.1~12.2
 
 ## 1.git相关学习
 ### 部署gitlab环境
-- 安装SSH:
+1. 安装SSH:
 ```bash
 sudo apt-get update
 sudo apt-get install openssh-server
 ```
 
-- 注册gitlab账号并login
+2. 注册gitlab账号并login
 启用root账户
 ```bash
 sudo passwd root
 su      //切换到root
 exit    //登出root
 ```
-- 安装postfix用于邮件发送
+3. 安装postfix用于邮件发送
 ```bash
 sudo apt-get install curl openssh-server ca-certificates postfix
 ```
-- 信任Gitlab的GPC公钥
+4. 信任Gitlab的GPC公钥
 ```bash
 curl https://packages.gitlab.com/gpg.key 2> /dev/null | sudo apt-key add - &>/dev/null
 ```
-- 进入root用户新建表，加入一行源
+5. 进入root用户新建表，加入一行源
 ```bash
 vim /etc/apt/sources.list.d/gitlab-ce.list
 deb https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu xenial main
 ```
-- 安装gitlab-ce
+6. 安装gitlab-ce
 ```bash
 sudo apt-get update
 sudo apt-get install gitlab-ce
 ```
 
-- 配置GitLab IP地址
+7. 配置GitLab IP地址
 ```bash
 sudo apt install net-tools  //安装网络工具
 ifconfig                    //查看本机ip为192.168.1.100
@@ -43,14 +43,14 @@ sudo gitlab-ctl reconfigure //重新配置gitlab，使得生效
 ```
 >遇到报错，It seems you haven't specified an initial root password while configuring the GitLab instance.进入root下运行成功解决.
 
-- 打开sshd和postfix服务
+8. 打开sshd和postfix服务
 ```bash
 service sshd start
 service postfix start
 ```
 >为了使 GitLab 社区版的 Web 界面可以通过网络进行访问，我们需要允许 80 端口通过防火墙，这个端口是 GitLab 社区版的默认端口。为此需要运行下面的命令
 >>sudo iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
-- 验证运行情况
+9. 验证运行情况
 `sudu gitlab-ctl status`得到以下反馈，服务正常
 ```bash
 run: alertmanager: (pid 29647) 264s; run: log: (pid 29386) 321s
@@ -72,7 +72,7 @@ run: sidekiq: (pid 29552) 280s; run: log: (pid 28102) 479s
 >tips: gitlab暂无访问权限,就此打住
 ---
 ### GitHub使用
-- 安装SSH keys
+1. 安装SSH keys
 ```bash
 cd ~/.ssh
 ls
@@ -107,6 +107,27 @@ cat id_rsa.pub                                          //将秘钥cp至个人gi
 zhangshengchao@FA001237:~/.ssh$ ssh -T git@github.com   //访问成功
 Hi zorippl! You've successfully authenticated, but GitHub does not provide shell access.
 ```
+2. 配置git
+```bash
+git config --global user.name "github用户名"
+git config --global user.email "github邮箱地址"
+```
+3. 本地仓库初始化&更改提交
+```bash
+cd xxxx                         //进入仓库目录
+git init                        //本地仓库初始化
+touch Readme                    //比如新建文件
+git add Readme                  //将改动放入暂存区
+git commit -m 'add readme file' //提交改动，标记备注
+git status                      //查看缓存空间状态
+```
+4. push与clone
+```bash
+git remote add origin https://github.com/你的github用户名/你的github仓库.git   //服务器与本地仓库进行关联
+git push origin master                                                      //根据要求输入github用户名密码
+git clone https://github.com/你的github用户名/github仓库名.git                 //根据要求输入github用户名密码 
+```
+>遇到报错 remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.解决方法进入github进阶设置中申请token并保存，代替password进行访问，本仓库token如下：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
 ## 2.linux基本操作
 - Linux思想为万物皆文件的思想，严格通过权限去限制读写访问运行等情况
 - 文件的颜色代表了文件的状态&形式
@@ -142,6 +163,7 @@ chmod [可选项] <mode> <file...>      此处操作/dev/ttyUSB0
 -rw-rw-rw- (666)                    所有用户都有文件读、写权限。
 -rwxrwxrwx (777)                    所有用户都有读、写、执行权限。
 ```
-6. 
+6. 在目标目录下运行脚本`idf.py build`编译整个应用程序和所有组件
+7. 使用命令`idf.py -p PORT [-b BAUD] flash`将二进制文件.bin(bootloader, 分区表, hellow_world)烧录至ESP32开发板
 
 //申请了两块板卡
