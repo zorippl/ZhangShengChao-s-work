@@ -1,5 +1,21 @@
 # 12.1~12.2
 
+## daily report
+
+本日内容：
+1. 重装了系统，运行环境，ESP-IDF环境
+2. 安装gitlab环境并测试通信
+3. 构建自己的Github仓库,练习提交本地项目，回滚版本，pull and push等命令
+4. 扫盲Linux常用指令盲区
+5. 在vscode下跑通hello_world于ESP32开发板
+6. 学习编写markdown格式文档
+7. 细读编码格式，了解Doxygen代码注释风格下的文档格式
+   
+明日计划：
+1. 读芯片手册，点灯，在已有硬件条件下测试各项功能
+2. esp-box项目学习 make深入
+3. 针对操作系统英文文档进行翻译阅读
+
 ## 1.git相关学习
 ### 部署gitlab环境
 1. 安装SSH:
@@ -23,7 +39,7 @@ sudo apt-get install curl openssh-server ca-certificates postfix
 ```bash
 curl https://packages.gitlab.com/gpg.key 2> /dev/null | sudo apt-key add - &>/dev/null
 ```
-5. 进入root用户新建表，加入一行源
+5. 进入root用户新建表，加入清华下载源
 ```bash
 vim /etc/apt/sources.list.d/gitlab-ce.list
 deb https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu xenial main
@@ -127,7 +143,7 @@ git remote add origin https://github.com/zorippl/espressif.git              //�
 git push origin master                                                      //根据要求输入github用户名密码
 git clone https://github.com/你的github用户名/github仓库名.git                 //根据要求输入github用户名密码 
 ```
->遇到报错 remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.解决方法进入github进阶设置中申请token并保存，代替password进行访问，本仓库token如下：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
+>遇到报错 remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.解决方法进入github进阶设置中申请token并保存，代替password进行访问，本仓库token如下：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
 ## 2.linux基本操作
 - Linux思想为万物皆文件的思想，严格通过权限去限制读写访问运行等情况
 - 文件的颜色代表了文件的状态&形式
@@ -142,16 +158,31 @@ pwd                                 //显示当前工作目录
 ls [parameter]                      //查看当前目录下内容 -l详细显示 -a包括隐藏
 cp [parameter] 源文件/目录 目标目录    //-r 递归copy
 rm [parameter] 文件/目录             //-r 递归rm
+cat 文件名                           //显示文件所有内容
 touch                               //新建一个文件
+mv 旧名 新名 || mv 源目录 目标目录      //改名或者移动
 ```
+### Vim的使用
 
+| 命令 | 作用 |
+| ------ | ------ | 
+| i | 在光标前面插入 |
+| a | 在光标后面插入 | 
+| o | 在光标下一行插入 | 
+| :wq | 保存退出 | 
+| :q! | 不保存退出 | 
 ## 3.ESP-IDF环境搭建与测试
 
-1. 首先安装git工具，克隆ESP-IDF到本地 `git clone -b v4.3.1 --recursive https://github.com/espressif/esp-idf.git`
-2. 切换到esp-idf目录下运行提供的shell脚本进行各种交叉编译器,工具组件的下载和安装`./install.sh`,其中遇到了一些工具缺失的报错,安装了python python3 python3-pip后得以解决.
-3. 将hello_word cp到外部目录后运行脚本为当前目录配置各种工具的PATH环境变量`. $HOME/esp/esp-idf/export.sh`.
-4. 将ESP32开发板连接至PC USB,使用指令‘ls /dev/tty*’查看设备连接前后新增的外设得到串口ID为`/dev/ttyUSB0`.
-5. 在目标目录下运行脚本`idf.py set-target esp32`设置目标芯片，`idf.py menuconfig`可以启动工程配置窗口，对基本内容进行配置.
+### VSCODE下搭建与技巧
+1. 打开工程文件夹 添加include path 新建终端直接进行操作
+2. 新建了tasks.json,设定shell type,组合处理命令，并映射到实体按键如f5上实现一键build
+
+### hellow world!
+1. 首先安装git工具，克隆ESP-IDF到本地 `git clone -b v4.3.1 --recursive https://github.com/espressif/esp-idf.git`。
+2. 切换到esp-idf目录下运行提供的shell脚本进行各种交叉编译器,工具组件的下载和安装`./install.sh`,其中遇到了一些工具缺失的报错,安装了python python3 python3-pip后得以解决。
+3. 将hello_word cp到外部目录后运行脚本为当前目录配置各种工具的PATH环境变量`. $HOME/esp/esp-idf/export.sh`。
+4. 将ESP32开发板连接至PC USB,使用指令‘ls /dev/tty*’查看设备连接前后新增的外设得到串口ID为`/dev/ttyUSB0`。
+5. 在目标目录下运行脚本`idf.py set-target esp32`设置目标芯片，`idf.py menuconfig`可以启动工程配置窗口，对基本内容进行配置。
 >其中不同的芯片需要有改动,还有esp32s2适用于esp32-S2,esp32C3适用于esp32-C3
 
 >遇到报错,大致意思是读取串口失败,立刻联想到是权限问题,搜索到指令chmod改变串口设备的权限
@@ -165,7 +196,6 @@ chmod [可选项] <mode> <file...>      此处操作/dev/ttyUSB0
 -rw-rw-rw- (666)                    所有用户都有文件读、写权限。
 -rwxrwxrwx (777)                    所有用户都有读、写、执行权限。
 ```
-1. 在目标目录下运行脚本`idf.py build`编译整个应用程序和所有组件
-2. 使用命令`idf.py -p PORT [-b BAUD] flash`将二进制文件.bin(bootloader, 分区表, hellow_world)烧录至ESP32开发板
-
-//申请了两块板卡你觉得呢
+6. 在目标目录下运行脚本`idf.py build`编译整个应用程序和所有组件。
+7. 使用命令`idf.py -p PORT [-b BAUD] flash`将二进制文件.bin(bootloader, 分区表, hellow_world)烧录至ESP32开发板。
+8. `idf.py -p PORT monitor`指令打开监视器 `Ctrl+]`退出IDF监视器，乱码要重新配置晶振信息。
