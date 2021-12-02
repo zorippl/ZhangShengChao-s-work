@@ -123,7 +123,7 @@ git status                      //查看缓存空间状态
 ```
 4. push与clone
 ```bash
-git remote add origin https://github.com/你的github用户名/你的github仓库.git   //服务器与本地仓库进行关联
+git remote add origin https://github.com/zorippl/espressif.git              //服务器与本地仓库进行关联
 git push origin master                                                      //根据要求输入github用户名密码
 git clone https://github.com/你的github用户名/github仓库名.git                 //根据要求输入github用户名密码 
 ```
@@ -152,6 +152,8 @@ touch                               //新建一个文件
 3. 将hello_word cp到外部目录后运行脚本为当前目录配置各种工具的PATH环境变量`. $HOME/esp/esp-idf/export.sh`.
 4. 将ESP32开发板连接至PC USB,使用指令‘ls /dev/tty*’查看设备连接前后新增的外设得到串口ID为`/dev/ttyUSB0`.
 5. 在目标目录下运行脚本`idf.py set-target esp32`设置目标芯片，`idf.py menuconfig`可以启动工程配置窗口，对基本内容进行配置.
+>其中不同的芯片需要有改动,还有esp32s2适用于esp32-S2,esp32C3适用于esp32-C3
+
 >遇到报错,大致意思是读取串口失败,立刻联想到是权限问题,搜索到指令chmod改变串口设备的权限
 ```bash
 chmod [可选项] <mode> <file...>      此处操作/dev/ttyUSB0
@@ -163,7 +165,7 @@ chmod [可选项] <mode> <file...>      此处操作/dev/ttyUSB0
 -rw-rw-rw- (666)                    所有用户都有文件读、写权限。
 -rwxrwxrwx (777)                    所有用户都有读、写、执行权限。
 ```
-6. 在目标目录下运行脚本`idf.py build`编译整个应用程序和所有组件
-7. 使用命令`idf.py -p PORT [-b BAUD] flash`将二进制文件.bin(bootloader, 分区表, hellow_world)烧录至ESP32开发板
+1. 在目标目录下运行脚本`idf.py build`编译整个应用程序和所有组件
+2. 使用命令`idf.py -p PORT [-b BAUD] flash`将二进制文件.bin(bootloader, 分区表, hellow_world)烧录至ESP32开发板
 
-//申请了两块板卡
+//申请了两块板卡你觉得呢
