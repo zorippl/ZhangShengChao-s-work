@@ -56,8 +56,8 @@ code example
 ## 1.xxxxx
 ### xxx
 1. 安装SSH:
+2. 
 ```bash
 sudo apt-get update
 sudo apt-get install openssh-server
 ```
-
