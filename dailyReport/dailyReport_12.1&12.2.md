@@ -144,6 +144,13 @@ git push origin master                                                      //�
 git clone https://github.com/你的github用户名/github仓库名.git                 //根据要求输入github用户名密码 
 ```
 >遇到报错 remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.解决方法进入github进阶设置中申请token并保存，代替password进行访问，本仓库token如下：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
+5. 分支相关
+```bash
+git branch -a                   //查看所有本地和远程分支，当前分支会用*标记出
+git branch -D 分支               //删除分支，在此之前先用下面的指令切换到别的分支去
+git checkout 分支                //切换分支 | 新建分支
+git checkout 本地分支 远程分支     //将远程分支拉取到本地，本地分支不存在则自动新建
+```
 ## 2.linux基本操作
 - Linux思想为万物皆文件的思想，严格通过权限去限制读写访问运行等情况
 - 文件的颜色代表了文件的状态&形式
