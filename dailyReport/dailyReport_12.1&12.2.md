@@ -149,7 +149,7 @@ git clone https://github.com/你的github用户名/github仓库名.git          
 git branch -a                   //查看所有本地和远程分支，当前分支会用*标记出
 git branch -D 分支               //删除分支，在此之前先用下面的指令切换到别的分支去
 git checkout 分支                //切换分支 | 新建分支
-git checkout 本地分支 远程分支     //将远程分支拉取到本地，本地分支不存在则自动新建
+git checkout -b 本地分支 远程分支     //将远程分支拉取到本地，本地分支不存在则自动新建
 ```
 ## 2.linux基本操作
 - Linux思想为万物皆文件的思想，严格通过权限去限制读写访问运行等情况
