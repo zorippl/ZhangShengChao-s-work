@@ -207,3 +207,4 @@ chmod [可选项] <mode> <file...>      此处操作/dev/ttyUSB0
 6. 在目标目录下运行脚本`idf.py build`编译整个应用程序和所有组件。
 7. 使用命令`idf.py -p PORT [-b BAUD] flash`将二进制文件.bin(bootloader, 分区表, hellow_world)烧录至ESP32开发板。
 8. `idf.py -p PORT monitor`指令打开监视器 `Ctrl+]`退出IDF监视器，乱码要重新配置晶振信息。
+2^8^=256
