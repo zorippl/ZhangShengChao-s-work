@@ -39,7 +39,7 @@
 7. `ui_main_start()`设置UI
 8. `lv_task_handler()`拉起UI处理句柄（基于给lvgl分配的timer）
 9. `app_audio_start()`读取wake.wav放入缓存，创建播放任务的信号量并在core 0创建音频任务`audio_task`于`Core 0`，通过`i2s_wrire()`进行send
-10. `app_sr_start()`I2S初始化以及唤醒词侦测响应任务
+10. `app_sr_start()`I2S初始化以及Speech Recognition唤醒词侦测响应任务
     1. `sr_init_task()`中`bsp_i2s_init(i2s_port_t i2s_num, uint32_t sample_rate)`对i2s进行初始化
     2. `sr_init_task()`中`bsp_codec_init(audio_hal_iface_samples_t sample_rate)`对音频采集解码根据检测到的不同规则进行初始化
     3. 创建任务`audio_feed_task`于`Core 1`从i2s总线中读取双声道信息存入缓冲区

@@ -63,8 +63,8 @@ esp_err_t bsp_lcd_init(void)
 #endif
 
     /**
-     * @brief Configure LCD rotation and mirror
-     * 
+     * @brief Configure LCD rotation  mirror
+     * and
      */
     esp_err_t ret_val = ESP_OK;
     ret_val |= esp_lcd_panel_reset(panel_handle);
