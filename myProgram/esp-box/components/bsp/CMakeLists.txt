@@ -4,10 +4,16 @@ file(GLOB_RECURSE BSP_SRCS
     "src/bsp_i2s.c"
     "src/bsp_tp.c"
     "src/lcd/*.c"
-    "src/storage/*.c")
+    "src/storage/*.c"
+    "src/indev/*.c"
+    "src/indev/bt_hid/*.c")
 
 if(CONFIG_ESP32_S3_BOX_BOARD)
     list(APPEND BSP_BOARD_SRC "./boards/esp32_s3_box.c")
+endif()
+
+if(CONFIG_ESP32_S3_BOX_LITE_BOARD)
+    list(APPEND BSP_BOARD_SRC "./boards/esp32_s3_box_lite.c")
 endif()
 
 if(CONFIG_ESP_CUSTOM_BOARD)
@@ -21,9 +27,13 @@ idf_component_register(
     INCLUDE_DIRS
         "boards"
         "include"
+        "src/indev"
+        "src/indev/bt_hid"
     REQUIRES
+        button
         codec
-        i2c_devices
+        esp_hid
         esp_lcd
         fatfs
+        i2c_devices
         spiffs)

@@ -31,6 +31,8 @@
 
 #if CONFIG_ESP32_S3_BOX_BOARD
     #include "esp32_s3_box.h"
+#elif CONFIG_ESP32_S3_BOX_LITE_BOARD
+    #include "esp32_s3_box_lite.h"
 #elif CONFIG_ESP_CUSTOM_BOARD
     #include "esp_custom_board.h"
 #else 

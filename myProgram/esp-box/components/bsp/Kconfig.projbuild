@@ -8,6 +8,9 @@ menu "HMI Board Config"
     config ESP32_S3_BOX_BOARD
         bool "ESP32-S3 Box Dev Board"
         depends on IDF_TARGET_ESP32S3
+    config ESP32_S3_BOX_LITE_BOARD
+        bool "ESP32-S3 Box Lite Dev Board"
+        depends on IDF_TARGET_ESP32S3
     config ESP_CUSTOM_BOARD
         bool "Custom HMI board"
     endchoice

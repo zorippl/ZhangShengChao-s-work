@@ -28,13 +28,19 @@
 #include "lv_port.h"
 #include "lvgl.h"
 
+#include "bsp_mouse.h"
+
 void app_main(void)
 {
     ESP_ERROR_CHECK(bsp_board_init());
 
     ESP_ERROR_CHECK(bsp_lcd_init());
-    ESP_ERROR_CHECK(bsp_tp_init());
+    // ESP_ERROR_CHECK(bsp_tp_init());
+    bsp_mouse_init_default();
+
+
     ESP_ERROR_CHECK(lv_port_init());
+
 
     /**
      * @brief Demos provided by LVGL.

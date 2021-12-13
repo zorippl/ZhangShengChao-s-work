@@ -45,12 +45,11 @@ static bool lcd_trans_done_cb(esp_lcd_panel_io_handle_t, esp_lcd_panel_io_event_
 
 esp_err_t bsp_lcd_init(void)
 {
-
     bsp_spi_lcd_init(&io_handle, lcd_trans_done_cb);
 
     esp_lcd_panel_dev_config_t panel_config = {
         .reset_gpio_num = GPIO_LCD_RST,
-        .color_space = ESP_LCD_COLOR_SPACE_BGR,
+        .color_space = LCD_COLOR_SPACE,
         .bits_per_pixel = 16,
     };
 
@@ -63,8 +62,8 @@ esp_err_t bsp_lcd_init(void)
 #endif
 
     /**
-     * @brief Configure LCD rotation  mirror
-     * and
+     * @brief Configure LCD rotation and mirror
+     * 
      */
     esp_err_t ret_val = ESP_OK;
     ret_val |= esp_lcd_panel_reset(panel_handle);

@@ -23,6 +23,7 @@
 #include "bsp_lcd.h"
 #include "esp_err.h"
 #include "esp_log.h"
+#include "bsp_mouse.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -101,20 +102,26 @@ static IRAM_ATTR void touchpad_read(lv_indev_drv_t * indev_drv, lv_indev_data_t 
     uint8_t tp_num = 0;
     uint16_t x = 0, y = 0, btn_val = 0;
     /* Read touch point(s) via touch IC */
-    if (ESP_OK != bsp_tp_read(&tp_num, &x, &y, &btn_val)) {
-        // ESP_LOGE(TAG, "Failed read touch panel value");
+    bsp_mouse_state_t mouse_state;
+    if (ESP_OK != bsp_mouse_get_state(&mouse_state)) {
         return;
     }
+
+    // if (ESP_OK != bsp_tp_read(&tp_num, &x, &y, &btn_val)) {
+    //     // ESP_LOGE(TAG, "Failed read touch panel value");
+    //     return;
+    // }
 
     ESP_LOGD(TAG, "Touch (%u) : [%3u, %3u]", tp_num, x, y);
 
     /* FT series touch IC might return 0xff before first touch. */
-    if ((0 == tp_num) || (5 < tp_num)) {
-        data->state = LV_INDEV_STATE_REL;
-    } else {
-        data->point.x = x;
-        data->point.y = y;
+    data->point.x = mouse_state.x;
+    data->point.y = mouse_state.y;
+
+    if (mouse_state.press) {
         data->state = LV_INDEV_STATE_PR;
+    } else {
+        data->state = LV_INDEV_STATE_REL;
     }
 }
 
@@ -223,10 +230,10 @@ static esp_err_t lv_port_indev_init(void)
     indev_button = lv_indev_drv_register(&indev_drv_btn);
 
     /* Uncomment code below to display a mouse cursor on screen */
-    // LV_IMG_DECLARE(mouse_cursor_icon)
-    // lv_obj_t * cursor_obj = lv_img_create(lv_scr_act()); /*Create an image object for the cursor */
-    // lv_img_set_src(cursor_obj, &mouse_cursor_icon);           /*Set the image source*/
-    // lv_indev_set_cursor(indev_touchpad, cursor_obj);             /*Connect the image  object to the driver*/
+    LV_IMG_DECLARE(mouse_cursor_icon)
+    lv_obj_t * cursor_obj = lv_img_create(lv_scr_act()); /*Create an image object for the cursor */
+    lv_img_set_src(cursor_obj, &mouse_cursor_icon);           /*Set the image source*/
+    lv_indev_set_cursor(indev_touchpad, cursor_obj);             /*Connect the image  object to the driver*/
 }
 
 /**
