@@ -29,6 +29,8 @@ LV_FONT_DECLARE(FONT_HINT)
 LV_FONT_DECLARE(font_en_24)
 LV_FONT_DECLARE(font_en_64)
 
+LV_IMG_DECLARE(pomodoro_icon)
+
 static lv_obj_t *label_time = NULL;
 static lv_obj_t *label_close = NULL;
 
@@ -40,6 +42,16 @@ static void btn_home_cb(lv_event_t *event)
         ui_dev_ctrl(false);
         ui_clock(true);
     }
+}
+
+static void btn_pomodoro_cb(lv_event_t *event)
+{   
+    ui_network(false);
+    ui_dev_ctrl(false);
+    ui_led(false);
+    ui_hint(false);
+    ui_clock(false);
+    ui_pomodoro(true);
 }
 
 static void hint_close_cb(lv_event_t *event)
@@ -123,6 +135,24 @@ void ui_clock(bool show)
         lv_obj_set_style_text_font(label_date, &font_en_24, 0);
         lv_obj_set_style_text_color(label_date, lv_color_make(80, 80, 80), 0);
         lv_obj_align(label_date, LV_ALIGN_CENTER, 0, 30);
+    }
+
+    static lv_obj_t *btn_pomodoro = NULL;
+    if (NULL == btn_pomodoro) {
+        btn_pomodoro = lv_btn_create(panel);
+        lv_obj_add_flag(btn_pomodoro, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_CHECKABLE);
+        lv_obj_set_size(btn_pomodoro, 25, 25);
+        lv_obj_set_style_bg_color(btn_pomodoro, lv_color_white(), LV_STATE_DEFAULT);
+        lv_obj_set_style_bg_color(btn_pomodoro, lv_color_white(), LV_STATE_CHECKED);
+        lv_obj_set_style_border_width(btn_pomodoro, 0, LV_STATE_DEFAULT);
+        lv_obj_set_style_shadow_width(btn_pomodoro, 0, LV_STATE_DEFAULT);
+        lv_obj_align(btn_pomodoro, LV_ALIGN_LEFT_MID, 15, -25);
+        lv_obj_add_event_cb(btn_pomodoro, btn_pomodoro_cb, LV_EVENT_CLICKED, NULL);
+
+        lv_obj_t *img = lv_img_create(btn_pomodoro);
+        lv_img_set_src(img, &pomodoro_icon);
+        lv_obj_align(img, LV_ALIGN_CENTER, 0, 0);
+        //lv_obj_set_user_data(img, (void *) &img_src_list[i]);
     }
 
     if (show) {

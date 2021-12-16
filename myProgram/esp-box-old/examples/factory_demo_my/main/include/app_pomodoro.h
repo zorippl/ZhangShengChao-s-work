@@ -22,5 +22,34 @@
 #pragma once
 
 #include "esp_err.h"
-#define EXAMPLE_ESP_WIFI_SSID       "ESP-Box"
-#define EXAMPLE_ESP_WIFI_PASS       "password"
+
+#define ENUM_TIME_SELLECT_ROLLER    ("1\n" "5\n" "10\n" "15\n" "20\n" "25\n" "30\n" "35\n" "40\n" "45\n" "50\n" "55\n" "60\n")
+#define VALUE_ANIME_RESUME          ((pomodoro_time_past * 100) / (pomodoro_time_set * 60))
+#define VALUE_ANIME_REMAIN          (pomodoro_time_set * 60 - pomodoro_time_past)
+/**
+ * @brief State of the pomodoro
+ * 
+ */
+typedef enum {
+    POMODORO_FREE = 0,
+    POMODORO_START,
+    POMODORO_PAUSE,
+} app_pomodoro_state_t;
+
+/**
+ * @brief Start pomodoro timer
+ * 
+ */
+void app_pomodoro_start();
+
+/**
+ * @brief Pause pomodoro timer
+ * 
+ */
+void app_pomodoro_reverse();
+
+/**
+ * @brief Reset the pomodoro
+ * 
+ */
+void app_pomodoro_reset();

@@ -62,16 +62,6 @@ static void btn_clock_cb(lv_event_t *event)
     ui_pomodoro(false);
 }
 
-static void btn_pomodoro_cb(lv_event_t *event)
-{   
-    ui_network(false);
-    ui_dev_ctrl(false);
-    ui_led(false);
-    ui_hint(false);
-    ui_clock(false);
-    ui_pomodoro(true);
-}
-
 void ui_status_bar_init(lv_color_t color)
 {
     if (NULL == label_clock) {
@@ -118,7 +108,7 @@ void ui_status_bar_init(lv_color_t color)
         lv_obj_set_style_text_color(btn_setting, lv_color_make(192, 192, 192), LV_STATE_PRESSED);
         lv_label_set_text_static(btn_setting, LV_SYMBOL_SETTINGS);
         lv_obj_align(btn_setting, LV_ALIGN_TOP_RIGHT, -10, 5);
-        lv_obj_add_event_cb(btn_setting, btn_pomodoro_cb, LV_EVENT_CLICKED, NULL);
+        //lv_obj_add_event_cb(btn_setting, btn_pomodoro_cb, LV_EVENT_CLICKED, NULL);
     }
 
     lv_obj_set_style_text_color(label_clock, color, 0);

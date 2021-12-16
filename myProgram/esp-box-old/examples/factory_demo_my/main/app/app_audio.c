@@ -88,6 +88,7 @@ void audio_play_start(void)
 
 static void audio_task(void *pvParam)
 {
+    static uint8_t count = 3;
     void *audio_buffer = pvParam;
 
     size_t bytes_written = 0;
@@ -96,7 +97,10 @@ static void audio_task(void *pvParam)
     while (true) {
         xSemaphoreTake(audio_sem, portMAX_DELAY);
         b_audio_playing = true;
-        i2s_write(I2S_NUM_0, audio_buffer, bytes_to_write, &bytes_written, portMAX_DELAY);
+        while (count--) {
+            i2s_write(I2S_NUM_0, audio_buffer, bytes_to_write, &bytes_written, portMAX_DELAY);
+            vTaskDelay(1000 / portTICK_PERIOD_MS);
+        }
         b_audio_playing = false;
 
         /* It's useful if wake audio didn't finish playing when next wake word detetced */
